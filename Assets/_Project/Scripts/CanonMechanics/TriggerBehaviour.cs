@@ -9,20 +9,29 @@ public class TriggerBehaviour : InteractiveBehaviour
     public event Action onTriggerReleased;
     [SerializeField]
     private float _chargeSpeed;
-
+    
     private Vector3 _restPosition;
     private float _currentPower = 0;
     private bool _released = false;
     private bool _first = true;
+    private LineRenderer _renderer;
     private void Awake()
     {
         _restPosition = transform.position;
+        _renderer = GetComponent<LineRenderer>();
+        _renderer.positionCount = 2;
     }
 
     public override void Grab(GripBehaviour gripBehaviour)
     {
         transform.position = gripBehaviour.transform.position;
         _first = true;
+    }
+
+    void Update()
+    {
+        Vector3[] positions = {transform.position, _restPosition};
+        _renderer.SetPositions(positions);
     }
 
     public override void InteractWithPosition(Vector3 position)
@@ -50,6 +59,7 @@ public class TriggerBehaviour : InteractiveBehaviour
         if (_released)
         {
             _released = false;
+            transform.position = _restPosition;
             return true;
         }
         else

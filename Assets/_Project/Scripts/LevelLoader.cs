@@ -10,6 +10,7 @@ public class LevelLoader : MonoBehaviour
     [SerializeField]
     private MeshRenderer _blocking;
 
+    private bool isLoading = false;
     private Material _material;
 
     void Start()
@@ -29,5 +30,19 @@ public class LevelLoader : MonoBehaviour
             SceneManager.LoadScene(index + 1);
         };
 
+    }
+    public void ReloadLevel()
+    {
+        if (!isLoading)
+        {
+            _blocking.gameObject.SetActive(true);
+            isLoading = true;
+            _material.DOFade(1f, 1.5f).onComplete += () =>
+            {
+                int index = SceneManager.GetActiveScene().buildIndex;
+                SceneManager.LoadScene(index);
+            };
+
+        }
     }
 }
