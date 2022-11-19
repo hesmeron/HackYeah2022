@@ -2,10 +2,19 @@ using UnityEngine;
 
 public abstract  class InteractiveBehaviour : MonoBehaviour
 {
-    public abstract void Grab();
-    public abstract void InteractWithRotation(float angle);
-    public abstract void InteractWithPosition(Vector3 position);
+    
+    public virtual void Grab(GripBehaviour gripBehaviour)
+    {
+    }
 
-    public abstract void InteractWithVector(Vector3 vector);
-    public abstract void Drop();
+    public virtual void InteractWithRotation(float angle){}
+    public virtual void InteractWithPosition(Vector3 position){}
+
+    public virtual void InteractWithVector(Vector3 vector){}
+    public virtual void Drop(){}
+
+    public virtual bool Break()
+    {
+        return false;
+    }
 }

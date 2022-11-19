@@ -6,7 +6,6 @@ public enum InteractionStates
 {
     Grab,
     Forward,
-    Scale
 }
 public abstract class InteractionState
 {

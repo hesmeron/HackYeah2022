@@ -27,7 +27,7 @@ public class GrabSystem : MonoBehaviour
         bool enabledAmbient = false;
         if( leftGrab || rightGrab)
         {
-            AdjustPosition();
+            UpdateGrab();
         }
         else if(_left._gripState == GripState.Idle && _right._gripState == GripState.Idle)
         {
@@ -42,7 +42,7 @@ public class GrabSystem : MonoBehaviour
         _ambient.enabled = enabledAmbient;
     }
     
-    private void AdjustPosition()
+    private void UpdateGrab()
     {
         bool leftGrab = _left._gripState == GripState.Grab;
         bool rightGrab = _right._gripState == GripState.Grab;
@@ -62,9 +62,13 @@ public class GrabSystem : MonoBehaviour
         }
         
         float angle = Vector2.Angle(Vector3.up, _right.transform.position - _left.transform.position);
-        _angleText.text = angle.ToString();
+        //_angleText.text = angle.ToString();
         _target.InteractWithRotation(angle);
         _target.InteractWithPosition(targetPosition);
+        if (_target.Break())
+        {
+            Drop();
+        }
     }
 
     private void AdjustPositionForward()
@@ -74,11 +78,11 @@ public class GrabSystem : MonoBehaviour
     }
 
     
-    public void SetTarget(InteractiveBehaviour target)
+    public void SetTarget(InteractiveBehaviour target, GripBehaviour gripBehaviour)
     {
         _target = target;
-        _target.Grab();
-        _source.PlayOneShot(_grabSound);
+        _target.Grab(gripBehaviour);
+        //_source.PlayOneShot(_grabSound);
     }
     
     private void Drop()

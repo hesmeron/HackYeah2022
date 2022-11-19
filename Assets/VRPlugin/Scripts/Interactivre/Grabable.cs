@@ -71,7 +71,7 @@ public class Grabable : InteractiveBehaviour
         _targetPosition = transform.position + translation;
     }
 
-    public override void Grab()
+    public override void Grab(GripBehaviour gripBehaviour)
     {
         _rigidbody.useGravity = false;
         _isGrabbed = true;

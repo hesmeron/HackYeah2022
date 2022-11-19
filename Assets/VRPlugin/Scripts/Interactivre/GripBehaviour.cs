@@ -74,7 +74,7 @@ public class GripBehaviour : MonoBehaviour
             _renderer.SetPositions(positions);
             if (hit.transform.gameObject.TryGetComponent(out InteractiveBehaviour interactive))
             {
-                _grabSystem.SetTarget(interactive);
+                _grabSystem.SetTarget(interactive, this);
                 return true;
             }
         }
