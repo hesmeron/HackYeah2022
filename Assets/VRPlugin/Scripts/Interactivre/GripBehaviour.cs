@@ -67,7 +67,7 @@ public class GripBehaviour : MonoBehaviour
             _renderer.enabled = false;
             return false;
         }
-        if (Physics.Raycast(new Ray(origin, transform.forward), out RaycastHit hit))
+        if (Physics.Raycast(new Ray( origin - (transform.forward * 0.2f), transform.forward), out RaycastHit hit))
         {
             _renderer.enabled = true;
             Vector3[] positions = new[] {transform.position, hit.point};

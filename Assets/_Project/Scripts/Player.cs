@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
         livesLeft--;
         if (livesLeft <= 0)
         {
-            _levelLoader.ReloadLevel();
+            _levelLoader.LoadNextLevel();
         }
     }
 }

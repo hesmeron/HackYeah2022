@@ -4,6 +4,9 @@ public class CanonBehaviour : MonoBehaviour
 {
     [SerializeField] 
     private TriggerBehaviour _trigger;
+
+    [SerializeField]
+    private ParticleSystem _particleSystem;
     
     [SerializeField]
     private Transform _pivot;
@@ -21,5 +24,6 @@ public class CanonBehaviour : MonoBehaviour
         GameObject projectile = Instantiate(_projectilePrefab);
         projectile.transform.position = _pivot.transform.position;
         projectile.transform.forward = _pivot.forward;
+        _particleSystem.Play();
     }
 }

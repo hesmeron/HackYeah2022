@@ -31,6 +31,16 @@ public class LevelLoader : MonoBehaviour
         };
 
     }
+    public void LoadPreviousLevel()
+    {
+        _blocking.gameObject.SetActive(true);
+        _material.DOFade(1f, 1.5f).onComplete += () =>
+        {
+            int index = SceneManager.GetActiveScene().buildIndex;
+            SceneManager.LoadScene(index -1);
+        };
+
+    }
     public void ReloadLevel()
     {
         if (!isLoading)

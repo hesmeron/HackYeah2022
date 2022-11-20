@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract  class InteractiveBehaviour : MonoBehaviour
 {
-    
+    public bool Interactable = true;
     public virtual void Grab(GripBehaviour gripBehaviour)
     {
     }
