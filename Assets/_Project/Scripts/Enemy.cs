@@ -1,3 +1,4 @@
+using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -5,7 +6,10 @@ using Random = UnityEngine.Random;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] 
+    private ParticleSystem _particleSystem;
+    [SerializeField] 
     private Turret _turret;
+    
     
     private Vector3 steer = Vector3.zero;
     private float _speed = 0.5f;
@@ -17,8 +21,21 @@ public class Enemy : MonoBehaviour
         if (collision.other.TryGetComponent(out Projectile projectile))
         {
             Destroy(projectile.gameObject);
-            Destroy(gameObject);
+            StartCoroutine(Sink());
         }
+    }
+    
+    IEnumerator Sink()
+    {
+        _isShooting = true;
+        Destroy(_turret);
+        _particleSystem.Stop();
+        while (transform.position.y > -5)
+        {
+            transform.position -= Vector3.up * Time.deltaTime / 3f;
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 
     private void Update()
@@ -42,7 +59,9 @@ public class Enemy : MonoBehaviour
             }
 
             transform.forward += steer;
-            transform.position += transform.forward * Time.deltaTime * _speed;
+            Vector3 desiredPosition = transform.forward * Time.deltaTime * _speed;
+            transform.position += new Vector3(desiredPosition.x, 0, desiredPosition.z);
+            //transform.position = new Vector3(transform.position.x, -2.71f, transform.position.z);
         }
 
     }

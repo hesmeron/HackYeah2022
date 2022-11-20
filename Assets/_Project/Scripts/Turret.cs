@@ -7,12 +7,16 @@ using Random = UnityEngine.Random;
 
 public class Turret : MonoBehaviour
 {
+    [SerializeField] private AudioSource _source;
+    [SerializeField] private AudioClip _shoot;
     [SerializeField]
     private GameObject _projectile;
     [SerializeField]
     private Transform _pivot;
 
-    private float _delay = 3f;
+    [SerializeField] private ParticleSystem _particleSystem;
+
+    private float _delay = 12f;
 
     private void OnDrawGizmos()
     {
@@ -36,6 +40,8 @@ public class Turret : MonoBehaviour
         GameObject projectile = Instantiate(_projectile);
         projectile.transform.position = _pivot.position;
         projectile.transform.forward = _pivot.forward;
+        _particleSystem.Play();
+        _source.PlayOneShot(_shoot);
     }
 
     public void AimAndShoot()
@@ -45,7 +51,7 @@ public class Turret : MonoBehaviour
 
     IEnumerator AimAndShootCoroutine()
     {
-        while (gameObject)
+        while (this)
         {
             
             if(AdjustTurret())

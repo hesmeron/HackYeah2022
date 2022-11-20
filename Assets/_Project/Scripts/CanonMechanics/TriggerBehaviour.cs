@@ -9,15 +9,17 @@ public class TriggerBehaviour : InteractiveBehaviour
     public event Action onTriggerReleased;
     [SerializeField]
     private float _chargeSpeed;
+
+    [SerializeField] 
+    private Transform _pivot;
     
-    private Vector3 _restPosition;
+    private Vector3 _restPosition => _pivot.position;
     private float _currentPower = 0;
     private bool _released = false;
     private bool _first = true;
     private LineRenderer _renderer;
     private void Awake()
     {
-        _restPosition = transform.position;
         _renderer = GetComponent<LineRenderer>();
         _renderer.positionCount = 2;
     }
