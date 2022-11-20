@@ -1,17 +1,16 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 public class CruiseProjectile : MonoBehaviour
 {
+    [SerializeField]
+    private ParticleSystem _particleSystem;
     private void Update()
     {
         transform.position += transform.forward * Time.deltaTime * 10f;
-        if (transform.position.magnitude < 1.5f)
+        if (transform.position.magnitude < 2.5f)
         {
             Player.Instance.GetHit();
+            Instantiate(_particleSystem).transform.position = transform.position;
             Destroy(this.gameObject);
         }
     }

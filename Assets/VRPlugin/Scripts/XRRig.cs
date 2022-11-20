@@ -17,8 +17,8 @@ public class XRRig : MonoBehaviour
 
     void Start()
     {
-        _inputActionMap.FindAction("HeadPosition").performed += HeadOnperformed; //XRHMD xrhmd = XRHMD.current;
-        _inputActionMap.FindAction("HeadRotation").performed += HeadRotationOnperformed; //XRHMD xrhmd = XRHMD.current;
+        _inputActionMap.FindAction("HeadPosition").performed += HeadOnperformed; 
+        _inputActionMap.FindAction("HeadRotation").performed += HeadRotationOnperformed; 
     }
 
 

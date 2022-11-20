@@ -1,9 +1,10 @@
+using System;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
     [SerializeField]
-    private GameObject
+    private ParticleSystem _particleSystem;
     [SerializeField] 
     private Transform _pivot;
     
@@ -34,5 +35,10 @@ public class Projectile : MonoBehaviour
         Vector3 newPosition = position + ((horizontal + vertical) * Time.deltaTime);
         transform.forward = newPosition - position;
         transform.position = newPosition;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Instantiate(_particleSystem).transform.position = transform.position;
     }
 }
