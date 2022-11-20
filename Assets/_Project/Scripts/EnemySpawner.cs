@@ -23,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
             float z = Random.Range(0, 1f);
             GameObject enemy= Instantiate(_enemyPrefab.gameObject, transform);
             enemy.transform.forward = -new Vector3(x, 0, z);
-            enemy.transform.position = (new Vector3(x, 0, z) * 60f) + new Vector3(0, y, 0);
+            enemy.transform.position = (new Vector3(x, 0, z).normalized * 40f) + new Vector3(0, y, 0);
         }
     }
 }
